@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+    <title>CSS Animations</title>
+    <style>
+        /* [ | | ]*/
+        .bounce-enter-active { /* enter phrase */
+            animation: bounce-in .5s; / /* animation-name   animation-duration */
+        }
+        .bounce-leave-active { /* leave phrase */
+            animation: bounce-in .5s reverse; /* reversed keyframes */
+        }
+
+        @keyframes bounce-in {
+            /* keyframe */
+            0% { /* the starting point/state of the animation phrase */
+                transform: scale(0);
+            }
+            50% { /* 1/2 point of the animation phrase */
+                transform: scale(1.5);
+            }
+            100% { /* the ending point of the animation pahrase */
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="demo">
+        <button @click="show = !show">Toggle show</button>
+        <!-- keyframe; animated object-->
+        <transition name="bounce"><!-- associated with the style/keyframe -->
+            <p v-if="show">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris facilisis enim libero, at lacinia diam fermentum id. Pellentesque habitant morbi tristique senectus et netus.</p>
+        </transition>
+    </div>
+    <script>
+        new Vue({
+            el: '#demo',
+            data: {
+                show: true
+            }
+        })
+    </script>
+</body>
+</html>

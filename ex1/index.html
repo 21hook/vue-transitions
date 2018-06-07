@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+    <title>CSS Transitions</title>
+    <style>
+        /*
+            [                           |                       |                    ]
+            active/enter phrase    enter starting state   leave ending state  enter phrase
+
+            [                           |                       |                    ]
+            inactive/leave phrase   leave starting state   leave ending state   leave phrase
+
+        */
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity .5s; /*  properties to animate; the starting image */
+        }
+        .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+            opacity: 0; /* the ending image */
+        }
+    </style>
+</head>
+<body>
+    <div id="demo">
+        <button @click="show = !show">
+            Toggle
+        </button>
+        <!-- keyframe; animated object -->
+        <transition name="fade"> <!-- associate with the style/keyframe -->
+            <p v-if="show">hello</p>
+        </transition>
+    </div>
+    <script>
+        // opt/property interfaces
+        new Vue({
+            el: '#demo',
+            data: {
+                show: false
+            }
+        })
+    </script>
+</body>
+</html>
