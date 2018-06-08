@@ -3,32 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
 
-    <title>State Transitions</title>
+    <title>List Transitions</title>
+    <style>
+        .list-item {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .list-enter-active, .list-leave-active { /* the ending->starting image  */
+            transition: all 1s; /* properties to animate */
+        }
+        .list-enter, .list-leave-to /* the starting->ending image */
+            /* .list-leave-active for below version 2.1.8 */ {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+    </style>
 </head>
 <body>
-    <div id="demo">
-        <input v-model.number="number" type="number" step="20">
-        <p>{{ animatedNumber }}</p>
+    <div id="list-demo" class="demo">
+        <button @click="add">Add</button>
+        <button @click="remove">Remove</button>
+        <!-- keyframes; animate object: the new inserted item  -->
+        <transition-group name="list" tag="p"> <!-- associate with style/keyframe -->
+            <span v-for="item in items" :key="item" class="list-item">
+              {{ item }}
+            </span>
+        </transition-group>
     </div>
 
     <script>
         new Vue({
-            el: '#demo',
+            el: '#list-demo',
             data: {
-                number: 0,
-                tweenedNumber: 0
+                items: [1,2,3,4,5,6,7,8,9],
+                nextNum: 10
             },
-            computed: {
-                animatedNumber: function() {
-                    return this.tweenedNumber.toFixed(0);
-                }
-            },
-            watch: {
-                number: function(newValue) {
-                    TweenLite.to(this.$data, 0.5, { tweenedNumber: newValue });
-                }
+            methods: {
+                randomIndex: function () {
+                    return Math.floor(Math.random() * this.items.length)
+                },
+                /**
+                 * * Add an element at a random position.
+                 */
+                add: function () {
+                    this.items.splice(this.randomIndex(), 0, this.nextNum++) // splice an elt at a pos
+                },
+                /**
+                 * Remove an element randomly in the array
+                 */
+                remove: function () {
+                    this.items.splice(this.randomIndex(), 1) // delete an elt (by slice a new one)
+                },
             }
         })
     </script>

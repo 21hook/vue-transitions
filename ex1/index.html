@@ -7,18 +7,17 @@
     <title>CSS Transitions</title>
     <style>
         /*
-            [                           |                       |                    ]
-            active/enter phrase    enter starting state   leave ending state  enter phrase
+            |-----------------------------------------------------------|
+            enter starting state  active/enter phrase  enter ending state
 
-            [                           |                       |                    ]
-            inactive/leave phrase   leave starting state   leave ending state   leave phrase
-
+            |-----------------------------------------------------------|
+            leave starting state   leave phrase leave        ending state
         */
-        .fade-enter-active, .fade-leave-active {
-            transition: opacity .5s; /*  properties to animate; the starting image */
+        .fade-enter-active, .fade-leave-active { /* ending image -> starting image */
+            transition: opacity .5s; /*  properties to animate */
         }
         .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-            opacity: 0; /* the ending image */
+            opacity: 0; /* starting image -> ending image */
         }
     </style>
 </head>
